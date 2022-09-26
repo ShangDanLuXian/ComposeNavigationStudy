@@ -10,8 +10,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.composenavigation.navigation.SetUpNavGraph
+import com.example.composenavigation.navigation.NavControl
 import com.example.composenavigation.ui.theme.ComposeNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +22,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeNavigationTheme {
                 val navController = rememberNavController()
-                SetUpNavGraph(navController = navController)
+                val vm: MainViewModel = viewModel()
+                vm.navControl = NavControl(navController)
+
+                vm.navControl.SetUpNavGraph()
             }
         }
     }

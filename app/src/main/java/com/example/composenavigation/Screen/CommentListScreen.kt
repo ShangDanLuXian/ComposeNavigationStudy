@@ -4,48 +4,38 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.composenavigation.Comment
 import com.example.composenavigation.CommentCard
+import com.example.composenavigation.MainActivity
+import com.example.composenavigation.MainViewModel
+import com.example.composenavigation.navigation.ReplyParamSet
 import com.example.composenavigation.navigation.Screen
 
 
 @Composable
 fun CommentListScreen(
-    navController: NavHostController,
-    comments: List<Comment>
+
 ) {
-    Comments(navController = navController, comments = comments)
+    val comments : List<Comment> =
+    List(100) {Comment("Sev$it", "Hello$it", false)}
+    Comments(comments = comments)
 }
 
 @Composable
 fun Comments(comments : List<Comment> =
                  List(100) {Comment("Sev$it", "Hello$it", false)}
-             , navController: NavHostController){
+             ){
+    val viewModel: MainViewModel = viewModel(LocalContext.current as MainActivity)
     LazyColumn(modifier = Modifier.padding(vertical = 4.dp)){
         items(items = comments){
             CommentCard(it, replyListener =  {
-//                navController.currentBackStackEntry?.savedStateHandle?.set(
-//                    key = "comment",
-//                    value = it
-//                )
-//                navController.navigate(Screen.Reply.withArgs("primitive")){
-//                    popUpTo(Screen.Home.route)
-//                }
-                Navigate(navController, Screen.Home.route, Screen.Reply.withArgs("primitive"), it)
+                viewModel.navControl.navigate(Screen.Home.route, Screen.Reply.route, ReplyParamSet(it, "Hi"))
             })
 
         }
-    }
-}
-
-fun Navigate(navController: NavHostController, backRoute: String, destinationRoute: String, comment: Comment){
-    navController.getBackStackEntry(backRoute).savedStateHandle.set(
-        key = "comment",
-        value = comment
-    )
-    navController.navigate(destinationRoute){
-        popUpTo(backRoute)
     }
 }
