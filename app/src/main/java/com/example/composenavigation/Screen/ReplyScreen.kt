@@ -17,13 +17,13 @@ import com.example.composenavigation.Comment
 import com.example.composenavigation.CommentCard
 import com.example.composenavigation.MainActivity
 import com.example.composenavigation.MainViewModel
-import com.example.composenavigation.navigation.ReplyParamSet
+import com.example.composenavigation.navigation.ParamSet
 import com.example.composenavigation.navigation.Screen
 
 @Composable
 fun ReplyScreen() {
     val vm: MainViewModel = viewModel(LocalContext.current as MainActivity)
-    val arguments: ReplyParamSet = vm.navControl.getArguments(Screen.Reply.route) as ReplyParamSet
+    val arguments: ParamSet.ReplyParamSet = vm.navControl.getArguments(Screen.Reply.route) as ParamSet.ReplyParamSet
     Column(modifier = Modifier
         .fillMaxSize()
         .clickable { }) {

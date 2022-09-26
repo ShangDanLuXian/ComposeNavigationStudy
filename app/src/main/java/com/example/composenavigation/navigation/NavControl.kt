@@ -35,7 +35,7 @@ class NavControl constructor(
 
     }
 
-    fun navigate(backRoute: String, destinationRoute: String, paramSet: Parcelable? = null){
+    fun navigate(backRoute: String, destinationRoute: String, paramSet: ParamSet? = null){
         navController.getBackStackEntry(backRoute).savedStateHandle.set(
                 key = destinationRoute,
                 value = paramSet
@@ -45,9 +45,9 @@ class NavControl constructor(
         }
     }
 
-    fun getArguments(route: String): Parcelable? {
+    fun getArguments(route: String): ParamSet? {
         navController.previousBackStackEntry?.savedStateHandle.let {
-            return it?.get<Parcelable>(route)
+            return it?.get<ParamSet>(route)
         }
     }
 
@@ -60,8 +60,11 @@ sealed class Screen(val route: String) {
 
 }
 
-@Parcelize
-data class ReplyParamSet(
-    val comment: Comment,
-    val hello: String
-): Parcelable
+sealed class ParamSet : Parcelable {
+    @Parcelize
+    data class ReplyParamSet(
+        val comment: Comment,
+        val hello: String
+    ): ParamSet()
+
+}

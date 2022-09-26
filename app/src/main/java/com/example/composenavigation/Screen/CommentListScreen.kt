@@ -12,7 +12,7 @@ import com.example.composenavigation.Comment
 import com.example.composenavigation.CommentCard
 import com.example.composenavigation.MainActivity
 import com.example.composenavigation.MainViewModel
-import com.example.composenavigation.navigation.ReplyParamSet
+import com.example.composenavigation.navigation.ParamSet
 import com.example.composenavigation.navigation.Screen
 
 
@@ -33,7 +33,7 @@ fun Comments(comments : List<Comment> =
     LazyColumn(modifier = Modifier.padding(vertical = 4.dp)){
         items(items = comments){
             CommentCard(it, replyListener =  {
-                viewModel.navControl.navigate(Screen.Home.route, Screen.Reply.route, ReplyParamSet(it, "Hi"))
+                viewModel.navControl.navigate(Screen.Home.route, Screen.Reply.route, ParamSet.ReplyParamSet(it, "Hi"))
             })
 
         }
