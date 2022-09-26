@@ -26,13 +26,26 @@ fun Comments(comments : List<Comment> =
     LazyColumn(modifier = Modifier.padding(vertical = 4.dp)){
         items(items = comments){
             CommentCard(it, replyListener =  {
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "comment",
-                    value = it
-                )
-                navController.navigate(Screen.Reply.withArgs("primitive"))
+//                navController.currentBackStackEntry?.savedStateHandle?.set(
+//                    key = "comment",
+//                    value = it
+//                )
+//                navController.navigate(Screen.Reply.withArgs("primitive")){
+//                    popUpTo(Screen.Home.route)
+//                }
+                Navigate(navController, Screen.Home.route, Screen.Reply.route, it)
             })
 
         }
+    }
+}
+
+fun Navigate(navController: NavHostController, backRoute: String, destinationRoute: String, comment: Comment){
+    navController.getBackStackEntry(backRoute).savedStateHandle.set(
+        key = "comment",
+        value = comment
+    )
+    navController.navigate(Screen.Reply.withArgs("primitive")){
+        popUpTo(backRoute)
     }
 }

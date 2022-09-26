@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.composenavigation.Comment
 import com.example.composenavigation.Screen.CommentListScreen
+import com.example.composenavigation.Screen.HomeScreen
 import com.example.composenavigation.Screen.ReplyScreen
 
 //TODO back navigation to specific screen
@@ -21,8 +22,11 @@ fun SetUpNavGraph(
     val comments  =
         List(100) {
             Comment("Sev$it", "Hello$it", false)}
-    NavHost(navController = navController, startDestination = Screen.CommentList.route) {
+    NavHost(navController = navController, startDestination = Screen.Home.route) {
 
+        composable(route = Screen.Home.route){
+            HomeScreen(navController = navController)
+        }
         composable(route = Screen.CommentList.route){
             CommentListScreen(navController = navController, comments = comments)
         }
