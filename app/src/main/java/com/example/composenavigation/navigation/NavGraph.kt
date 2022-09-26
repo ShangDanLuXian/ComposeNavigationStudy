@@ -11,7 +11,8 @@ import com.example.composenavigation.Screen.CommentListScreen
 import com.example.composenavigation.Screen.HomeScreen
 import com.example.composenavigation.Screen.ReplyScreen
 
-//TODO back navigation to specific screen
+// back navigation to specific screen
+//TODO
 // pass a list
 // create a nav class to handle all navigation
 
