@@ -33,7 +33,7 @@ fun Comments(comments : List<Comment> =
 //                navController.navigate(Screen.Reply.withArgs("primitive")){
 //                    popUpTo(Screen.Home.route)
 //                }
-                Navigate(navController, Screen.Home.route, Screen.Reply.route, it)
+                Navigate(navController, Screen.Home.route, Screen.Reply.withArgs("primitive"), it)
             })
 
         }
@@ -45,7 +45,7 @@ fun Navigate(navController: NavHostController, backRoute: String, destinationRou
         key = "comment",
         value = comment
     )
-    navController.navigate(Screen.Reply.withArgs("primitive")){
+    navController.navigate(destinationRoute){
         popUpTo(backRoute)
     }
 }
